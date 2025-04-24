@@ -1,0 +1,56 @@
+
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Xlsx to Wwise</title>
+                <style>
+                    body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+                    input, select { font-size: 1.2em; padding: 10px; background: #222; color: white; border: 1px solid #444; margin: 10px; }
+                    button { padding: 10px 20px; background: #007BFF; color: white; border: none; font-size: 1.2em; cursor: pointer; }
+                    h1 { color: #00BFFF; }
+                    .result { margin-top: 20px; font-size: 1.5em; }
+                </style>
+            </head>
+            <body>
+                <h1>Xlsx to Wwise</h1>
+                <label for="lang">Langue / Language:</label>
+                <select id="lang" onchange="updateText()">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                </select>
+                <p id="instruction">Estimez le coût de la commande</p>
+                <input id="qty" type="number" placeholder="Quantité de lignes du tableur" oninput="calculate()">
+                <div class="result" id="result"></div>
+
+                <script>
+                    function updateText() {
+                        const lang = document.getElementById('lang').value;
+                        document.getElementById('instruction').innerText = lang === 'fr' ? 'Estimez le coût de la commande' : 'Estimate your order cost';
+                        document.getElementById('qty').placeholder = lang === 'fr' ? 'Quantité de lignes du tableur' : 'Spreadsheet row quantity';
+                        calculate();
+                    }
+
+                    function calculate() {
+                        const qty = parseInt(document.getElementById('qty').value);
+                        const lang = document.getElementById('lang').value;
+                        if (!qty || qty <= 0) { document.getElementById('result').innerText = ''; return; }
+                        const q = [500, 10000, 50000];
+                        const p = [1.0, 0.5, 0.1];
+
+                        let price = 0;
+                        if (qty <= q[0]) price = p[0];
+                        else if (qty >= q[2]) price = p[2];
+                        else if (qty <= q[1]) {
+                            price = p[0] + (p[1] - p[0]) * (qty - q[0]) / (q[1] - q[0]);
+                        } else {
+                            price = p[1] + (p[2] - p[1]) * (qty - q[1]) / (q[2] - q[1]);
+                        }
+
+                        const total = price * qty;
+                        document.getElementById('result').innerText = `${price.toFixed(4)} €/u | Total: ${total.toFixed(2)} €`;
+                    }
+                </script>
+            </body>
+            </html>
+            

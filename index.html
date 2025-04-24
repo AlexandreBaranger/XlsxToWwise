@@ -41,6 +41,27 @@
     .btn:hover {
       background-color: #0056b3;
     }
+    .btn-white {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: white;
+      color: black;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-width: 140px;
+      margin: 5px;
+    }
+    .btn-white:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    .button-container-bottom {
+      display: flex;
+      gap: 20px;
+    }
   </style>
 </head>
 <body>
@@ -48,6 +69,10 @@
   <div class="button-container">
     <a href="xlsx2wwisepriceNO.html" class="btn">Tarif sans saisie / No input pricing</a>
     <a href="xlsx2wwisepriceS.html" class="btn">Tarif avec saisie / With input pricing</a>
+  </div>
+  <div class="button-container-bottom">
+    <a href="https://alexandrebaranger.github.io/XlsxToWwise/Xlsx%20to%20WwiseFRV2.pdf" class="btn-white" target="_blank">Documentation FR</a>
+    <a href="documentationENG.html" class="btn-white">Documentation ENG</a>
   </div>
 </body>
 </html>

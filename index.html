@@ -16,6 +16,43 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background animation layer */
+    .background-logos {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .background-logos img {
+      position: absolute;
+      max-width: 60%;
+      max-height: 60%;
+      object-fit: contain;
+      animation: fadeSwap 10s infinite;
+    }
+
+    .background-logos img:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    @keyframes fadeSwap {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      40% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 0; }
     }
 
     .header-row {
@@ -111,12 +148,20 @@
 </head>
 <body>
 
+  <!-- BACKGROUND LOGOS -->
+  <div class="background-logos">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Microsoft_Excel_2013-2019_logo.svg" alt="Excel Logo">
+    <img src="https://www.audiokinetic.com/images/logos/ak_logo_dark.svg" alt="Audiokinetic Logo">
+  </div>
+
+  <!-- HEADER & DOCS -->
   <div class="header-row">
     <a href="https://alexandrebaranger.github.io/XlsxToWwise/Xlsx%20to%20WwiseFRV2.pdf" class="doc-button" target="_blank">Documentation FR</a>
     <h1>Xlsx to Wwise</h1>
     <a href="documentationENG.html" class="doc-button">Documentation ENG</a>
   </div>
 
+  <!-- VIDEO -->
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/y9ePZdw56c4?autoplay=1&mute=1&rel=0&modestbranding=1"
             allow="autoplay; encrypted-media"
@@ -124,6 +169,7 @@
     </iframe>
   </div>
 
+  <!-- PRICING BUTTONS -->
   <div class="button-container">
     <a href="xlsx2wwisepriceNO.html" class="btn">Tarif sans saisie / No input pricing</a>
     <a href="xlsx2wwisepriceS.html" class="btn">Tarif avec saisie / With input pricing</a>

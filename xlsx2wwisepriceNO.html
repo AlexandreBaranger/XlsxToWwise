@@ -19,14 +19,14 @@
                     <option value="fr">Français</option>
                     <option value="en">English</option>
                 </select>
-                <p id="instruction">Estimez le coût de la commande</p>
+                <p id="instruction">Tarif sans saisie - Estimez le coût de la commande</p>
                 <input id="qty" type="number" placeholder="Quantité de lignes du tableur" oninput="calculate()">
                 <div class="result" id="result"></div>
 
                 <script>
                     function updateText() {
                         const lang = document.getElementById('lang').value;
-                        document.getElementById('instruction').innerText = lang === 'fr' ? 'Estimez le coût de la commande' : 'Estimate your order cost';
+                        document.getElementById('instruction').innerText = lang === 'fr' ? 'Tarif sans saisie - Estimez le coût de la commande' : 'No input pricing - Estimate your order cost';
                         document.getElementById('qty').placeholder = lang === 'fr' ? 'Quantité de lignes du tableur' : 'Spreadsheet row quantity';
                         calculate();
                     }

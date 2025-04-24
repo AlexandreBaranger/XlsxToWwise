@@ -31,8 +31,8 @@
     h1 {
       font-size: 3rem;
       color: #333;
-      flex: 1 1 auto;
-      margin: 0;
+      margin: 0 20px;
+      flex-shrink: 0;
     }
 
     .doc-button {
@@ -52,12 +52,24 @@
       color: white;
     }
 
+    .video-container {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 9;
+      margin-bottom: 30px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     .button-container {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       gap: 20px;
-      align-items: center;
-      margin-bottom: 30px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -77,18 +89,6 @@
       background-color: #0056b3;
     }
 
-    .video-container {
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16 / 9;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
     @media (max-width: 600px) {
       h1 {
         font-size: 2.2rem;
@@ -102,6 +102,10 @@
         width: 100%;
         text-align: center;
       }
+
+      .btn {
+        min-width: 100%;
+      }
     }
   </style>
 </head>
@@ -113,16 +117,16 @@
     <a href="documentationENG.html" class="doc-button">Documentation ENG</a>
   </div>
 
-  <div class="button-container">
-    <a href="xlsx2wwisepriceNO.html" class="btn">Tarif sans saisie / No input pricing</a>
-    <a href="xlsx2wwisepriceS.html" class="btn">Tarif avec saisie / With input pricing</a>
-  </div>
-
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/y9ePZdw56c4?autoplay=1&mute=1&rel=0&modestbranding=1"
             allow="autoplay; encrypted-media"
             allowfullscreen>
     </iframe>
+  </div>
+
+  <div class="button-container">
+    <a href="xlsx2wwisepriceNO.html" class="btn">Tarif sans saisie / No input pricing</a>
+    <a href="xlsx2wwisepriceS.html" class="btn">Tarif avec saisie / With input pricing</a>
   </div>
 
 </body>

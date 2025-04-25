@@ -1,56 +1,112 @@
 
-            <!DOCTYPE html>
-            <html lang="fr">
-            <head>
-                <meta charset="UTF-8">
-                <title>Xlsx to Wwise</title>
-                <style>
-                    body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding: 40px; }
-                    input, select { font-size: 1.2em; padding: 10px; background: #222; color: white; border: 1px solid #444; margin: 10px; }
-                    button { padding: 10px 20px; background: #007BFF; color: white; border: none; font-size: 1.2em; cursor: pointer; }
-                    h1 { color: #00BFFF; }
-                    .result { margin-top: 20px; font-size: 1.5em; }
-                </style>
-            </head>
-            <body>
-                <h1>Xlsx to Wwise</h1>
-                <label for="lang">Langue / Language:</label>
-                <select id="lang" onchange="updateText()">
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                </select>
-                <p id="instruction">Tarif avec saisie - Estimez le coût de la commande</p>
-                <input id="qty" type="number" placeholder="Quantité de lignes du tableur" oninput="calculate()">
-                <div class="result" id="result"></div>
-
-                <script>
-                    function updateText() {
-                        const lang = document.getElementById('lang').value;
-                        document.getElementById('instruction').innerText = lang === 'fr' ? 'Tarif avec saisie- Estimez le coût de la commande' : 'With input pricing - Estimate your order cost';
-                        document.getElementById('qty').placeholder = lang === 'fr' ? 'Quantité de lignes du tableur' : 'Spreadsheet row quantity';
-                        calculate();
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xlsx to Wwise</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {margin-bottom: 20px;font-size: 30px;}
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .title-link {
+            text-decoration: none;
+            color: white;
+            background-color: transparent;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .title-link:hover {
+            background-color: white;
+            color: black;
+            border-color: #333;
+        }
+        label, button, p {font-size: 18px;margin-top: 10px;}
+        input {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px 0;
+            background-color: black;
+            color: white;
+            border: 1px solid white;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+        button:hover {background-color: #555;}
+        .info-text {font-size: 16px;margin-top: 20px;}
+        @media (max-width: 600px) {.container {width: 90%;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="title-link">Xlsx to Wwise</a>
+        <p class="info-text">Tarif avec saisie du tableur / Rate with spreadsheet entry</p>
+        <label for="quantity">Quantit&eacute; (lignes) / Quantity (lines) :</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button onclick="calculatePrice()">Calculer prix / Calculate price</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        const segments = [{"type": "D\u00e9gressif", "q_start": 0, "q_end": 100000, "cost_start": 0.0, "cost_end": 0.0}];
+        function calculatePrice() {
+            const quantity = parseInt(document.getElementById("quantity").value);
+            let priceUnit = 0;
+            let total = 0;
+            for (const segment of segments) {
+                if (quantity >= segment.q_start && quantity <= segment.q_end) {
+                    if (segment.type === 'Fixe') {
+                        priceUnit = segment.cost_start / quantity;  
+                    } else {
+                        priceUnit = segment.cost_start + (segment.cost_end - segment.cost_start) * (quantity - segment.q_start) / (segment.q_end - segment.q_start);
+                        priceUnit /= quantity;
                     }
-
-                    function calculate() {
-                        const qty = parseInt(document.getElementById('qty').value);
-                        const lang = document.getElementById('lang').value;
-                        if (!qty || qty <= 0) { document.getElementById('result').innerText = ''; return; }
-                        const q = [500, 10000, 50000];
-                        const p = [1.0, 0.5, 0.1];
-
-                        let price = 0;
-                        if (qty <= q[0]) price = p[0];
-                        else if (qty >= q[2]) price = p[2];
-                        else if (qty <= q[1]) {
-                            price = p[0] + (p[1] - p[0]) * (qty - q[0]) / (q[1] - q[0]);
-                        } else {
-                            price = p[1] + (p[2] - p[1]) * (qty - q[1]) / (q[2] - q[1]);
-                        }
-
-                        const total = price * qty;
-                        document.getElementById('result').innerText = `${price.toFixed(4)} €/u | Total: ${total.toFixed(2)} €`;
-                    }
-                </script>
-            </body>
-            </html>
+                    total = priceUnit * quantity;
+                    break;
+                }
+            }
+            if (priceUnit === 0) {document.getElementById("result").innerHTML = "Quantit&eacute; hors plage des segments. / Quantity outside the segment range.";}
+              else {
+                document.getElementById("result").innerHTML = `Total : ${total.toFixed(2)} &euro; / Total: ${total.toFixed(2)} &euro;`;
+            }
+        }
+    </script>
+</body>
+</html>
             

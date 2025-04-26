@@ -8,8 +8,8 @@
     <title>Xlsx to Wwise</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            background-color: white;
+            color: black;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -31,10 +31,10 @@
         }
         .title-link {
             text-decoration: none;
-            color: white;
+            color: black;
             background-color: transparent;
             padding: 15px 30px;
-            border: 2px solid white;
+            border: 2px solid black;
             border-radius: 5px;
             font-size: 24px;
             margin-bottom: 20px;
@@ -53,9 +53,9 @@
             width: 100%;
             max-width: 300px;
             margin: 10px 0;
-            background-color: black;
-            color: white;
-            border: 1px solid white;
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
         }
         button {
             padding: 10px 20px;
@@ -69,7 +69,7 @@
             margin-top: 20px;
         }
         button:hover {background-color: #555;}
-        .info-text {font-size: 16px;margin-top: 20px;}
+        .info-text {font-size: 16px;margin-top: 20px;color: black;}
         @media (max-width: 600px) {.container {width: 90%;}
         }
     </style>
@@ -84,7 +84,7 @@
         <p id="result"></p>
     </div>
     <script>
-        const segments = [{"type": "D\u00e9gressif", "q_start": 0, "q_end": 100000, "cost_start": 0.0, "cost_end": 0.0}];
+        const segments = [{"type": "Fixe", "q_start": 500, "q_end": 1000, "cost_start": 500.0, "cost_end": 500.0}, {"type": "Fixe", "q_start": 1001, "q_end": 2500, "cost_start": 750.0, "cost_end": 750.0}, {"type": "D\u00e9gressif", "q_start": 2501, "q_end": 5000, "cost_start": 750.0, "cost_end": 1500.0}, {"type": "D\u00e9gressif", "q_start": 5001, "q_end": 10000, "cost_start": 1500.0, "cost_end": 2000.0}, {"type": "D\u00e9gressif", "q_start": 10001, "q_end": 20000, "cost_start": 2000.0, "cost_end": 3000.0}, {"type": "D\u00e9gressif", "q_start": 20001, "q_end": 50000, "cost_start": 3000.0, "cost_end": 3500.0}, {"type": "D\u00e9gressif", "q_start": 50001, "q_end": 100000, "cost_start": 3500.0, "cost_end": 4000.0}];
         function calculatePrice() {
             const quantity = parseInt(document.getElementById("quantity").value);
             let priceUnit = 0;
@@ -103,7 +103,7 @@
             }
             if (priceUnit === 0) {document.getElementById("result").innerHTML = "Quantit&eacute; hors plage des segments. / Quantity outside the segment range.";}
               else {
-                document.getElementById("result").innerHTML = `Total : ${total.toFixed(2)} &euro; / Total: ${total.toFixed(2)} &euro;`;
+                document.getElementById("result").innerHTML = `${priceUnit.toFixed(4)} &euro; /u |Total : ${total.toFixed(2)} &euro; `;
             }
         }
     </script>

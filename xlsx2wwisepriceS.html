@@ -84,7 +84,7 @@
         <p id="result"></p>
     </div>
     <script>
-        const segments = [{"type": "D\u00e9gressif", "q_start": 500, "q_end": 1000000, "cost_start": 1500.0, "cost_end": 10000.0}];
+        const segments = [{"type": "D\u00e9gressif", "q_start": 500, "q_end": 1000, "cost_start": 1500.0, "cost_end": 3000.0}, {"type": "D\u00e9gressif", "q_start": 1001, "q_end": 3000, "cost_start": 3000.0, "cost_end": 7500.0}, {"type": "D\u00e9gressif", "q_start": 3001, "q_end": 10000, "cost_start": 7500.0, "cost_end": 15000.0}, {"type": "D\u00e9gressif", "q_start": 10001, "q_end": 50000, "cost_start": 15000.0, "cost_end": 50000.0}, {"type": "D\u00e9gressif", "q_start": 50001, "q_end": 100000, "cost_start": 50000.0, "cost_end": 75000.0}];
         function calculatePrice() {
             const quantity = parseInt(document.getElementById("quantity").value);
             let priceUnit = 0;
